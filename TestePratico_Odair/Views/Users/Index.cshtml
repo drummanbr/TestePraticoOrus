@@ -1,0 +1,79 @@
+﻿@*@model IEnumerable<TestePratico_Odair.Models.Users>*@
+@model PagedList.IPagedList<TestePratico_Odair.Models.Users>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Gerenciamento de Usuários</h2>
+<hr>
+<p>
+    @Html.ActionLink("Criar Novo", "Create", new { }, new { @class = "btn btn-success" })
+</p>
+<hr>
+@using (Html.BeginForm("Index", "Users", FormMethod.Get))
+{
+    <p>
+        Procura Usuário : @Html.TextBox("SearchString")
+        <input type="submit" value="Busca" />
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+
+            @Html.ActionLink("Nome", "Index", new { sortOrder = ViewBag.FirstNameParam })
+        </th>
+        <th>
+            @Html.ActionLink("Sobrenome", "Index", new { sortOrder = ViewBag.LastNameParam })
+
+        </th>
+        <th>
+            @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.EmailParam })
+
+        </th>
+        <th>
+            @Html.ActionLink("Celular", "Index", new { sortOrder = ViewBag.CellPhoneParam })
+
+        </th>
+        <th>
+            @Html.ActionLink("RG", "Index", new { sortOrder = ViewBag.RGParam })
+
+        </th>
+        <th>
+            @Html.ActionLink("CPF", "Index", new { sortOrder = ViewBag.CPFParam })
+
+        </th>
+
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CellPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CPF)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.UserId }, new { @class = "btn btn-warning" }) |
+                @Html.ActionLink("Deletar", "Delete", new { id = item.UserId }, new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
